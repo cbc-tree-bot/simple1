@@ -40,10 +40,53 @@
         OpenStreetMap</a> contributors, &copy;\
         <a href="https://carto.com/attribution">CARTO</a>'
   }).addTo(map);
+    
+        var style = {
+        "clickable": true,
+        "color": "#00D",
+        "fillColor": "#00D",
+        "weight": 1.0,
+        "opacity": 0.3,
+        "fillOpacity": 0.2
+    };
+    var hoverStyle = {
+        "fillOpacity": 0.5
+    };
+
+    var geojsonURL = 'https://cbc-tree-bot.github.io/treegeojson1/data.geojson';
+    var geojsonTileLayer = new L.TileLayer.GeoJSON(geojsonURL, {
+            clipTiles: true,
+            unique: function (feature) {
+                return feature.id; 
+            }
+        }, {
+            style: style,
+            onEachFeature: function (feature, layer) {
+                if (feature.properties) {
+                    var popupString = '<div class="popup">';
+                    for (var k in feature.properties) {
+                        var v = feature.properties[k];
+                        popupString += k + ': ' + v + '<br />';
+                    }
+                    popupString += '</div>';
+                    layer.bindPopup(popupString);
+                }
+                if (!(layer instanceof L.Point)) {
+                    layer.on('mouseover', function () {
+                        layer.setStyle(hoverStyle);
+                    });
+                    layer.on('mouseout', function () {
+                        layer.setStyle(style);
+                    });
+                }
+            }
+        }
+    );
+    map.addLayer(geojsonTileLayer);
 
   /* Display a point marker with pop-up text */
-  L.marker([41.77, -72.69]).addTo(map) // EDIT marker coordinates
-  .bindPopup("Insert pop-up text here"); // EDIT pop-up text message
+  //L.marker([41.77, -72.69]).addTo(map) // EDIT marker coordinates
+  //.bindPopup("Insert pop-up text here"); // EDIT pop-up text message
 
   </script>
 </body>
