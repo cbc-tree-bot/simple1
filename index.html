@@ -28,19 +28,37 @@
   <body>
     <div id="map"></div>
     <script>
-
       var map = L.map('map').setView([-33.928, 151.038], 10);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
 
-      // a Leaflet marker is used by default to symbolize point features.
-      L.esri
-        .featureLayer({
-          url: "https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0"
-        })
-        .addTo(map);
+      // Define a color scale
+      var colorScale = L.scale.linear().range(['#FFFFCC', '#800026']);
+
+      // Create a filter for Canterbury Bankstown Council
+      var councilFilter = {
+        where: "SA3_NAME16 == 'Bankstown'",
+      };
+
+      // Create a Vector layer with filtering and color scale
+      L.esri.Vector.layer(
+        'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
+        {
+          filter: councilFilter,
+          style: function (feature) {
+            var value = feature.properties.YOUR_ATTRIBUTE; // Replace with your attribute
+            return {
+              fillColor: colorScale(value),
+              weight: 1,
+              opacity: 1,
+              color: 'white',
+              fillOpacity: 0.8,
+            };
+          },
+        }
+      ).addTo(map);
     </script>
   </body>
 </html>
