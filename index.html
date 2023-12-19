@@ -28,36 +28,33 @@
   <body>
     <div id="map"></div>
     <script>
-      var map = L.map('map').setView([-33.928, 151.038], 9);
+
+      var map = L.map('map').setView([-33.928, 151.038], 10);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
-      // Define a color scale
-      var colorScale = L.scale.linear().range(['#FFFFCC', '#800026']);
+L.esri
+        .featureLayer({
+          url: "https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0",
+          simplifyFactor: 0.5,
+          precision: 5,
+          style: function (feature) {
+            if (feature.properties.All_Veg_Percentage => 50) {
+              return { color: "blue", weight: 2 };
+            } else if (feature.properties.PARTY =< 50) {
+              return { color: "red", weight: 2 };
+            } else {
+              return { color: "white", weight: 2 };
+            }
+          }
+        })
+        .addTo(map);
 
-      // Create a filter for SA3_NAME16 equal to 'Bankstown'
-      var bankstownFilter = {
-        where: "SA3_NAME16 = 'Bankstown'",
-      };
 
-var district_boundary = new L.geoJson();
-district_boundary.addTo(map);
 
-$.ajax({
-dataType: "json",
-url: "https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0/query?where=&text=Bankstown&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Meter&relationParam=&outFields=&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset=&resultRecordCount=&returnExtentOnly=false&datumTransformation=&parameterValues=&rangeValues=&quantizationParameters=&featureEncoding=esriDefault&f=geojson",
-success: function(data) {
-    $(data.features).each(function(key, data) {
-        district_boundary.addData(data);
-    });
-}
-}).error(function() {});
-            };
-          },
-        }
-      ).addTo(map);
+      
     </script>
   </body>
 </html>
