@@ -29,7 +29,7 @@
         top: 10px;
         right: 10px;
         z-index: 1000;
-        width: 150px; /* Adjusted width */
+        width: 150px;
       }
 
       .legend-header {
@@ -41,6 +41,12 @@
       .legend-item {
         margin-bottom: 5px;
         height: 20px;
+      }
+
+      .legend-text {
+        margin-top: 10px;
+        font-size: 12px;
+        text-align: center;
       }
     </style>
   </head>
@@ -59,6 +65,11 @@
       30% &ndash; 40%
       <div class="legend-item" style="background:#1f6630"></div>
       40%+
+    </div>
+
+    <div class="legend-text">
+      Canopy Coverage Data sourced from 2022 Canopy Coverage dataset. View the complete data on the SEED Portal 
+      (link to portal is: <a href="https://geo.seed.nsw.gov.au/Public_Viewer/index.html?viewer=Public_Viewer&locale=en-AU&runWorkflow=AppendLayerCatalog&CatalogLayer=SEED_Catalog.344" target="_blank">SEED Portal</a>).
     </div>
 
     <script>
@@ -118,8 +129,8 @@
               });
             }
             layer.setStyle({
-              weight: 4,
-              color: 'purple',
+              weight: 4, // Adjusted weight
+              color: 'purple', // Adjusted color
             });
             selectedLayer = layer;
           });
