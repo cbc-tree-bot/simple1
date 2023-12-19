@@ -37,19 +37,9 @@
 
 L.esri
         .featureLayer({
-          url: "https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0",
-          simplifyFactor: 0.5,
-          precision: 5,
-          style: function (feature) {
-            if (feature.properties.All_Veg_Percentage ==> 50) {
-              return { color: "blue", weight: 2 };
-            } else if (feature.properties.All_Veg_Percentage ==< 50) {
-              return { color: "red", weight: 2 };
-            } else {
-              return { color: "white", weight: 2 };
-            }
+          url: "https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0"
           }
-        })
+        )
         .addTo(map);
 
 
