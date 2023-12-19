@@ -35,30 +35,39 @@
     url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
     where: "EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012')", // Add the filter condition
     style: function (feature) {
-      var percentage = feature.properties.All_Veg_Percentage;
+      var percentage = feature.properties.Canopy_Percentage;
 
       // Define color ranges based on percentage
       var fillColor;
-      if (percentage < 20) fillColor = '#f7fcb9';
-      else if (percentage < 40) fillColor = '#addd8e';
-      else if (percentage < 60) fillColor = '#31a354';
-      else if (percentage < 80) fillColor = '#006837';
-      else fillColor = '#00441b';
+      if (percentage < 10) fillColor = '#ffecbf';
+      else if (percentage < 20) fillColor = '#a7cfb5';
+      else if (percentage < 30) fillColor = '#76a881';
+      else if (percentage < 40) fillColor = '#4b8758';
+      else fillColor = '#1f6630';
 
       return {
         fillColor: fillColor,
         weight: 0.7,
         opacity: 0.7,
         color: 'white',
-        fillOpacity: 0.7, // Set fill opacity to approximately 30%
+        fillOpacity: 0.7, // Set fill opacity to approximately 70%
       };
     },
     onEachFeature: function (feature, layer) {
       // Bind a popup to each feature  
       var popupContent = `
+        <b>Canopy_Percentage:</b> ${feature.properties.Canopy_Percentage}<br>
         <b>All_Veg_Percentage:</b> ${feature.properties.All_Veg_Percentage}<br>
-        <b>MB_CODE16:</b> ${feature.properties.MB_CODE16}<br>
-        <b>EPI_TYPE :</b> ${feature.properties.EPI_TYPE }<br>
+        <b>F_0_3m_Percent:</b> ${feature.properties.F_0_3m_Percent}<br>
+        <b>F_3_10m_Percent:</b> ${feature.properties.F_3_10m_Percent}<br>
+        <b>F_10_15m_Percent:</b> ${feature.properties.F_10_15m_Percent}<br>
+        <b>Greater_than_15m_Percent:</b> ${feature.properties.Greater_than_15m_Percent}<br>
+        <b>LZN_CODE:</b> ${feature.properties.LZN_CODE}<br>
+        <b>Non_Vege_1:</b> ${feature.properties.Non_Vege_1}<br>
+        <b>Non_Vegeta:</b> ${feature.properties.Non_Vegeta}<br>
+        <b>SA2_NAME16:</b> ${feature.properties.SA2_NAME16}<br>
+        <b>SA3_NAME16:</b> ${feature.properties.SA3_NAME16}<br>
+        <b>area__ha_:</b> ${feature.properties.area__ha_}<br>
         <!-- Add more attributes as needed -->
       `;
       layer.bindPopup(popupContent);
