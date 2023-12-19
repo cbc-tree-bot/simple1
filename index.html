@@ -50,16 +50,23 @@
         weight: 1,
         opacity: 1,
         color: 'white',
-        fillOpacity: 0.7, // Set fill opacity to approximately 30%
+        fillOpacity: 0.3, // Set fill opacity to approximately 30%
       };
     },
     onEachFeature: function (feature, layer) {
       // Bind a popup to each feature
-      var popupContent = "<b>All_Veg_Percentage:</b> " + feature.properties.All_Veg_Percentage;
+      var popupContent = `
+        <b>All_Veg_Percentage:</b> ${feature.properties.All_Veg_Percentage}<br>
+        <b>OBJECTID:</b> ${feature.properties.OBJECTID}<br>
+        <b>MB_CODE16:</b> ${feature.properties.MB_CODE16}<br>
+        <b>EPI_TYPE:</b> ${feature.properties.EPI_TYPE}<br>
+        <!-- Add more attributes as needed -->
+      `;
       layer.bindPopup(popupContent);
     },
   }).addTo(map);
 </script>
+
 
 
 
