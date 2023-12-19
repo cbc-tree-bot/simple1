@@ -28,7 +28,7 @@
   <body>
     <div id="map"></div>
     <script>
-      var map = L.map('map').setView([-33.928, 151.038], 10);
+      var map = L.map('map').setView([-33.928, 151.038], 12);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -37,18 +37,18 @@
       // Define a color scale
       var colorScale = L.scale.linear().range(['#FFFFCC', '#800026']);
 
-      // Create a filter for Canterbury Bankstown Council
-      var councilFilter = {
-        where: "SA3_NAME16 == 'Bankstown'",
+      // Create a filter for SA3_NAME16 equal to 'Bankstown'
+      var bankstownFilter = {
+        where: "SA3_NAME16 = 'Bankstown'",
       };
 
       // Create a Vector layer with filtering and color scale
       L.esri.Vector.layer(
         'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
         {
-          filter: councilFilter,
+          filter: bankstownFilter,
           style: function (feature) {
-            var value = feature.properties.YOUR_ATTRIBUTE; // Replace with your attribute
+            var value = feature.properties.All_Veg_Percentage; // Assuming All_Veg_Percentage is numeric
             return {
               fillColor: colorScale(value),
               weight: 1,
