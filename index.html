@@ -30,7 +30,7 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      // Create a feature layer with fixed color classes based on All_Veg_Percentage
+      // Create a feature layer with adjusted colors and transparency
       L.esri.featureLayer({
         url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
         style: function (feature) {
@@ -40,18 +40,15 @@
             weight: 1,
             opacity: 1,
             color: 'white',
-            fillOpacity: 0.8,
+            fillOpacity: 0.3, // Set fill opacity to approximately 30%
           };
         },
       }).addTo(map);
 
       // Define a function to assign color based on percentage
       function getColorByPercentage(percentage) {
-        if (percentage < 20) return '#fee08b';
-        else if (percentage < 40) return '#d73027';
-        else if (percentage < 60) return '#4575b4';
-        else if (percentage < 80) return '#91bfdb';
-        else return '#313695';
+        var colorScale = L.scale.linear().domain([0, 100]).range(['#ffffff', '#006837']);
+        return colorScale(percentage);
       }
     </script>
   </body>
