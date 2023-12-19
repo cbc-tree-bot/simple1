@@ -30,9 +30,22 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      // Create a feature layer with basic styling
+      // Define a color scale for All_Veg_Percentage
+      var colorScale = L.scale.linear().range(['#ffffcc', '#c2e699', '#78c679', '#31a354', '#006837']);
+
+      // Create a feature layer with styling based on All_Veg_Percentage
       L.esri.featureLayer({
         url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
+        style: function (feature) {
+          var percentage = feature.properties.All_Veg_Percentage;
+          return {
+            fillColor: colorScale(percentage),
+            weight: 1,
+            opacity: 1,
+            color: 'white',
+            fillOpacity: 0.8,
+          };
+        },
       }).addTo(map);
     </script>
   </body>
