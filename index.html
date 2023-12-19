@@ -43,7 +43,6 @@
         height: 20px;
       }
      
-
       .legend-text {
         margin-bottom: 10px;
         font-size: 12px;
@@ -58,9 +57,22 @@
         border-radius: 5px; /* Add border-radius for rounded corners */
         border: 1px solid #ccc; /* Add border for a cleaner look */
       }
+     
+      .legend-title {
+        font-size: 16px; /* Adjust font size as needed */
+        font-weight: bold; /* Add bold font weight */
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+}
 
 
-
+      
     </style>
   </head>
   <body>
@@ -85,9 +97,14 @@
     </div>
 
 
+    <div class="legend-text legend-title">
+    CBCity Canopy Coverage
+    </div>
+
+
 
     <script>
-      var map = L.map('map').setView([-33.928, 151.038], 17);
+      var map = L.map('map').setView([-33.928, 151.038], 15);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
