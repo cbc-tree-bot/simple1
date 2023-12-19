@@ -57,9 +57,48 @@
       // Bind a popup to each feature
       var popupContent = `
         <b>All_Veg_Percentage:</b> ${feature.properties.All_Veg_Percentage}<br>
-        <b>OBJECTID:</b> ${feature.properties.OBJECTID}<br>
-        <b>MB_CODE16:</b> ${feature.properties.MB_CODE16}<br>
-        <b>EPI_TYPE:</b> ${feature.properties.EPI_TYPE}<br>
+<b>MB_CODE16:</b> ${feature.properties.MB_CODE16}<br>
+<b>EPI_TYPE :</b> ${feature.properties.EPI_TYPE }<br>
+<b>EPI_NAME_1 :</b> ${feature.properties.EPI_NAME_1 }<br>
+<b>SYM_CODE_1 :</b> ${feature.properties.SYM_CODE_1 }<br>
+<b>PURPOSE_1 :</b> ${feature.properties.PURPOSE_1 }<br>
+<b>MMB_CAT :</b> ${feature.properties.MMB_CAT }<br>
+<b>MMB_SUBCAT :</b> ${feature.properties.MMB_SUBCAT }<br>
+<b>MMB_TYPE :</b> ${feature.properties.MMB_TYPE }<br>
+<b>MMB_AREA :</b> ${feature.properties.MMB_AREA }<br>
+<b>ABSCODE :</b> ${feature.properties.ABSCODE }<br>
+<b>MB_CAT16 :</b> ${feature.properties.MB_CAT16 }<br>
+<b>SA2_NAME16 :</b> ${feature.properties.SA2_NAME16 }<br>
+<b>SA3_NAME16 :</b> ${feature.properties.SA3_NAME16 }<br>
+<b>SA4_NAME16 :</b> ${feature.properties.SA4_NAME16 }<br>
+<b>GCC_NAME16 :</b> ${feature.properties.GCC_NAME16 }<br>
+<b>STE_NAME16 :</b> ${feature.properties.STE_NAME16 }<br>
+<b>AREA_TREE :</b> ${feature.properties.AREA_TREE }<br>
+<b>EPI_NAME :</b> ${feature.properties.EPI_NAME }<br>
+<b>LZN_CODE :</b> ${feature.properties.LZN_CODE }<br>
+<b>ZN_PURPOSE :</b> ${feature.properties.ZN_PURPOSE }<br>
+<b>MB_CLASS16 :</b> ${feature.properties.MB_CLASS16 }<br>
+<b>MMB_CODE :</b> ${feature.properties.MMB_CODE }<br>
+<b>VERDATE :</b> ${feature.properties.VERDATE }<br>
+<b>Shape_Leng :</b> ${feature.properties.Shape_Leng }<br>
+<b>class :</b> ${feature.properties.class }<br>
+<b>area__ha_ :</b> ${feature.properties.area__ha_ }<br>
+<b>Non_Vegeta :</b> ${feature.properties.Non_Vegeta }<br>
+<b>F_0_3m :</b> ${feature.properties.F_0_3m }<br>
+<b>F_3_10m :</b> ${feature.properties.F_3_10m }<br>
+<b>F_10_15m :</b> ${feature.properties.F_10_15m }<br>
+<b>Greater_than_15m :</b> ${feature.properties.Greater_than_15m }<br>
+<b>Canopy :</b> ${feature.properties.Canopy }<br>
+<b>Non_Vege_1 :</b> ${feature.properties.Non_Vege_1 }<br>
+<b>F_0_3m_Percent :</b> ${feature.properties.F_0_3m_Percent }<br>
+<b>F_3_10m_Percent :</b> ${feature.properties.F_3_10m_Percent }<br>
+<b>F_10_15m_Percent :</b> ${feature.properties.F_10_15m_Percent }<br>
+<b>Greater_than_15m_Percent :</b> ${feature.properties.Greater_than_15m_Percent }<br>
+<b>Canopy_Percentage :</b> ${feature.properties.Canopy_Percentage }<br>
+<b>Shape :</b> ${feature.properties.Shape }<br>
+<b>Shape.STArea:</b> ${feature.properties.Shape.STArea}<br>
+<b>Shape.STLength:</b> ${feature.properties.Shape.STLength}<br>
+
         <!-- Add more attributes as needed -->
       `;
       layer.bindPopup(popupContent);
