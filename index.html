@@ -24,32 +24,26 @@
   <body>
     <div id="map"></div>
     <script>
-      var map = L.map('map').setView([-33.928, 151.038], 16);
+  var map = L.map('map').setView([-33.928, 151.038], 10);
 
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
 
-      // Create a feature layer with adjusted colors and transparency
-      L.esri.featureLayer({
-        url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
-        style: function (feature) {
-          var percentage = feature.properties.All_Veg_Percentage;
-          return {
-            fillColor: getColorByPercentage(percentage),
-            weight: 1,
-            opacity: 1,
-            color: 'white',
-            fillOpacity: 0.3, // Set fill opacity to approximately 30%
-          };
-        },
-      }).addTo(map);
+  // Create a feature layer with fixed color and transparency
+  L.esri.featureLayer({
+    url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
+    style: function () {
+      return {
+        fillColor: '#006837', // Dark green fill color
+        weight: 1,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0.3, // Set fill opacity to approximately 30%
+      };
+    },
+  }).addTo(map);
+</script>
 
-      // Define a function to assign color based on percentage
-      function getColorByPercentage(percentage) {
-        var colorScale = L.scale.linear().domain([0, 100]).range(['#ffffff', '#006837']);
-        return colorScale(percentage);
-      }
-    </script>
   </body>
 </html>
