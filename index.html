@@ -9,12 +9,8 @@
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
 
-    <!-- Load Esri Leaflet Vector from CDN -->
-    <script src="https://unpkg.com/esri-leaflet-vector@4.2.3/dist/esri-leaflet-vector.js" crossorigin=""></script>
     <style>
-      html,
-      body,
-      #map {
+      html, body, #map {
         padding: 0;
         margin: 0;
         height: 100%;
@@ -34,10 +30,10 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      // Create a Vector layer with basic styling
-      L.esri.Vector.layer(
-        'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0'
-      ).addTo(map);
+      // Create a feature layer with basic styling
+      L.esri.featureLayer({
+        url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
+      }).addTo(map);
     </script>
   </body>
 </html>
