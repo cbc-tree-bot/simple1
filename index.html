@@ -41,9 +41,9 @@ L.esri
           simplifyFactor: 0.5,
           precision: 5,
           style: function (feature) {
-            if (feature.properties.All_Veg_Percentage => 50) {
+            if (feature.properties.All_Veg_Percentage ==> 50) {
               return { color: "blue", weight: 2 };
-            } else if (feature.properties.All_Veg_Percentage =< 50) {
+            } else if (feature.properties.All_Veg_Percentage ==< 50) {
               return { color: "red", weight: 2 };
             } else {
               return { color: "white", weight: 2 };
