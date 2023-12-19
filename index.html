@@ -33,6 +33,7 @@
 
       .legend-item {
         margin-bottom: 5px;
+        height: 20px;
       }
     </style>
   </head>
@@ -60,8 +61,7 @@
           else if (percentage < 20) fillColor = '#a7cfb5';
           else if (percentage < 30) fillColor = '#76a881';
           else if (percentage < 40) fillColor = '#4b8758';
-          else if (percentage > 40) fillColor = '#1f6630';  
-          else fillColor = '#ffffff';
+          else fillColor = '#1f6630';
 
           return {
             fillColor: fillColor,
@@ -94,12 +94,12 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'legend');
-        var grades = [10, 20, 30, 40, 100];
+        var grades = [0, 10, 20, 30, 40];
         var labels = ['<b>Legend</b>'];
 
         for (var i = 0; i < grades.length; i++) {
           div.innerHTML += '<div class="legend-item" style="background:' + getColor(grades[i] + 1) + '"></div>' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '%<br>' : '+%');
+            (grades[i + 1] ? grades[i] + '% &ndash; ' + grades[i + 1] + '%<br>' : '+' + grades[i] + '%');
         }
 
         div.innerHTML += '<br>' + labels.join('<br>');
