@@ -42,17 +42,18 @@
         margin-bottom: 5px;
         height: 20px;
       }
-
+     
       .legend-text {
-        margin-top: 10px;
+        margin-bottom: 10px;
         font-size: 12px;
-        text-align: center;
+        text-align: left;
         position: absolute;
         bottom: 10px;
         left: 10px;
         z-index: 1000;
-        width: 150px;
+        width: 300px; /* Adjust width as needed */
       }
+
     </style>
   </head>
   <body>
@@ -72,13 +73,15 @@
       40%+
     </div>
 
-    <div class="legend-text">
-      Canopy Coverage Data sourced from 2022 Canopy Coverage dataset. View the complete data on the SEED Portal 
-      (link to portal is: <a href="https://geo.seed.nsw.gov.au/Public_Viewer/index.html?viewer=Public_Viewer&locale=en-AU&runWorkflow=AppendLayerCatalog&CatalogLayer=SEED_Catalog.344" target="_blank">SEED Portal</a>).
+     <div class="legend-text">
+    Canopy Coverage Data sourced from Greater Sydney 2022 Canopy Coverage Dataset. View the complete data on the SEED Portal 
+    <a href="https://geo.seed.nsw.gov.au/Public_Viewer/index.html?viewer=Public_Viewer&locale=en-AU&runWorkflow=AppendLayerCatalog&CatalogLayer=SEED_Catalog.344" target="_blank">SEED Portal</a>).
     </div>
 
+
+
     <script>
-      var map = L.map('map').setView([-33.928, 151.038], 10);
+      var map = L.map('map').setView([-33.928, 151.038], 17);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
