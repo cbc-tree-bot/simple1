@@ -23,7 +23,6 @@
   </head>
   <body>
     <div id="map"></div>
-
 <script>
   var map = L.map('map').setView([-33.928, 151.038], 10);
 
@@ -31,9 +30,10 @@
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-  // Create a feature layer with color range and transparency
+  // Create a feature layer with color range, transparency, and filter
   L.esri.featureLayer({
     url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
+    where: "SA3_NAME16 IN ('Bankstown', 'Canterbury')", // Add the filter condition
     style: function (feature) {
       var percentage = feature.properties.All_Veg_Percentage;
 
@@ -49,12 +49,13 @@
         fillColor: fillColor,
         weight: 1,
         opacity: 1,
-        color: 'clear',
+        color: 'white',
         fillOpacity: 0.7, // Set fill opacity to approximately 30%
       };
     },
   }).addTo(map);
 </script>
+
 
 
 
