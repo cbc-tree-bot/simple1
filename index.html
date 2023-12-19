@@ -29,6 +29,13 @@
         top: 10px;
         right: 10px;
         z-index: 1000;
+        width: 150px; /* Adjusted width */
+      }
+
+      .legend-header {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
       }
 
       .legend-item {
@@ -39,7 +46,9 @@
   </head>
   <body>
     <div id="map"></div>
-    <div class="legend"></div>
+    <div class="legend">
+      <div class="legend-header">Legend</div>
+    </div>
 
     <script>
       var map = L.map('map').setView([-33.928, 151.038], 14);
@@ -94,15 +103,18 @@
 
       legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'legend');
-        var grades = [0, 10, 20, 30, 40];
-        var labels = ['<b>Legend</b>'];
+        var header = L.DomUtil.create('div', 'legend-header');
+        header.innerHTML = '<b>Legend</b>';
+        div.appendChild(header);
 
+        var grades = [0, 10, 20, 30, 40];
         for (var i = 0; i < grades.length; i++) {
-          div.innerHTML += '<div class="legend-item" style="background:' + getColor(grades[i] + 1) + '"></div>' +
-            (grades[i + 1] ? grades[i] + '% &ndash; ' + grades[i + 1] + '%<br>' : '+' + grades[i] + '%');
+          var item = L.DomUtil.create('div', 'legend-item');
+          item.style.background = getColor(grades[i] + 1);
+          item.innerHTML = (grades[i + 1] ? grades[i] + '% &ndash; ' + grades[i + 1] + '%' : '+' + grades[i] + '%');
+          div.appendChild(item);
         }
 
-        div.innerHTML += '<br>' + labels.join('<br>');
         return div;
       };
 
