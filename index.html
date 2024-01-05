@@ -46,16 +46,16 @@
       .legend-text {
         margin-bottom: 10px;
         font-size: 12px;
-        text-align: centre;
+        text-align: left;
         position: absolute;
         bottom: 10px;
         right: 10px;
         z-index: 1000;
-        width: 265px; /* Adjust width as needed */
-        background-color: white; /* Add this line for a white background */
-        padding: 15px; /* Add padding for better aesthetics */
-        border-radius: 5px; /* Add border-radius for rounded corners */
-        border: 1px solid #ccc; /* Add border for a cleaner look */
+        width: 265px;
+        background-color: white;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
       }
      
       .legend-title {
@@ -73,15 +73,23 @@
         border: 1px solid #ccc;
       }
 
+      .filter-box {
+        position: absolute;
+        top: 272px; 
+        right: 10px;
+        z-index: 1000;
+        background-color: white;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
 
-      
     </style>
   </head>
   <body>
     <div id="map"></div>
     <div class="legend">
       <div class="legend-header">Legend</div>
-
       <div class="legend-item" style="background:#ffecbf"></div>
       0% &ndash; 10%
       <div class="legend-item" style="background:#a7cfb5"></div>
@@ -94,15 +102,25 @@
       40%+
     </div>
 
-     <div class="legend-text">
-    Reproduced and edited under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>. <br> Canopy Coverage Data sourced from the <a href="https://datasets.seed.nsw.gov.au/dataset/urban-tree-canopy-cover-for-greater-sydney-2022" target="_blank">Greater Sydney 2022 Canopy Coverage Dataset</a>. <br> Areas shown are ABS Modified Mesh Blocks. <br>View the complete data on the <a href="https://geo.seed.nsw.gov.au/Public_Viewer/index.html?viewer=Public_Viewer&locale=en-AU&runWorkflow=AppendLayerCatalog&CatalogLayer=SEED_Catalog.344" target="_blank">SEED Portal Map</a>. 
+    <div class="legend-text">
+      Reproduced and edited under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>. <br>
+      Canopy Coverage Data sourced from the <a href="https://datasets.seed.nsw.gov.au/dataset/urban-tree-canopy-cover-for-greater-sydney-2022" target="_blank">Greater Sydney 2022 Canopy Coverage Dataset</a>. <br>
+      Areas shown are ABS Modified Mesh Blocks. <br>
+      View the complete data on the <a href="https://geo.seed.nsw.gov.au/Public_Viewer/index.html?viewer=Public_Viewer&locale=en-AU&runWorkflow=AppendLayerCatalog&CatalogLayer=SEED_Catalog.344" target="_blank">SEED Portal Map</a>. 
     </div>
 
     <div class="legend-title">
-    CBCity 2022 Canopy Coverage
+      CBCity 2022 Canopy Coverage
     </div>
 
-
+    <div class="filter-box">
+      <b>Filter:</b>
+      <select id="categoryFilter" onchange="applyFilter()">
+        <option value="All">All Items</option>
+        <option value="Public">Public Land</option>
+        <option value="Private">Private Land</option>
+      </select>
+    </div>
 
     <script>
       var map = L.map('map').setView([-33.928, 151.038], 15);
@@ -116,7 +134,7 @@
       // Create a feature layer with color range, transparency, filter, and popup
       var featureLayer = L.esri.featureLayer({
         url: 'https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/UHGC/Greater_Syd_All_Veg_Canopy_Cover_2022/MapServer/0',
-        where: "EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012')", // Add the filter condition
+        where: "EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012')",
         style: function (feature) {
           var percentage = feature.properties.Canopy_Percentage;
 
@@ -133,11 +151,10 @@
             weight: 0.7,
             opacity: 0.7,
             color: 'white',
-            fillOpacity: 0.7, // Set fill opacity to approximately 70%
+            fillOpacity: 0.7,
           };
         },
         onEachFeature: function (feature, layer) {
-          // Bind a popup to each feature  
           var popupContent = `
             <b>Canopy %:</b> ${feature.properties.Canopy_Percentage}<br>
             <b>All Vege %:</b> ${feature.properties.All_Veg_Percentage}<br>
@@ -153,7 +170,6 @@
           `;
           layer.bindPopup(popupContent);
 
-          // Add click event to highlight the selected layer
           layer.on('click', function () {
             if (selectedLayer) {
               selectedLayer.setStyle({
@@ -162,13 +178,24 @@
               });
             }
             layer.setStyle({
-              weight: 4, // Adjusted weight
-              color: 'purple', // Adjusted color
+              weight: 4,
+              color: 'purple',
             });
             selectedLayer = layer;
           });
         },
       }).addTo(map);
+
+      function applyFilter() {
+        var filterValue = document.getElementById("categoryFilter").value;
+        if (filterValue === "All") {
+          featureLayer.setWhere("EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012')");
+        } else if (filterValue === "Public") {
+          featureLayer.setWhere("EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012') AND MMB_CAT IN ('Education', 'Environmental', 'Other', 'Railway', 'Recreational', 'Road', 'Water')");
+        } else if (filterValue === "Private") {
+          featureLayer.setWhere("EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012') AND MMB_CAT IN ('Airport', 'Commercial', 'Hospital/Medical', 'Industrial', 'Primary Production', 'Residential')");
+        }
+      }
     </script>
   </body>
 </html>
