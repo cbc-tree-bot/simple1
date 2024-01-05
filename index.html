@@ -84,6 +84,16 @@
         border: 1px solid #ccc;
       }
 
+      .basemap-switch {
+		position: absolute;
+		top: 55px; /* Adjusted position */
+		left: 50px; /* Adjusted position */
+		z-index: 1000;
+		background-color: white; /* Background color added */
+		padding: 10px; /* Adjusted padding for better aesthetics */
+		border-radius: 5px; /* Added border-radius for rounded corners */
+		border: 1px solid #ccc; /* Added border for a cleaner look */
+		}
     </style>
   </head>
   <body>
@@ -122,12 +132,28 @@
       </select>
     </div>
 
+    <div class="basemap-switch">
+      <b>Basemap:</b>
+      <label>
+        <input type="radio" name="basemap" value="osm" checked="checked" onchange="changeBasemap('osm')"> OpenStreetMap
+      </label>
+      <label>
+        <input type="radio" name="basemap" value="imagery" onchange="changeBasemap('imagery')"> Imagery
+      </label>
+    </div>
+
     <script>
       var map = L.map('map').setView([-33.928, 151.038], 15);
 
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // Initial basemap
+      var osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
+
+      // Imagery basemap
+      var imageryLayer = L.tileLayer('https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; <a href="https://maps.six.nsw.gov.au/">NSW Government</a>',
+      });
 
       var selectedLayer; // Variable to store the selected layer
 
@@ -194,6 +220,16 @@
           featureLayer.setWhere("EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012') AND MMB_CAT IN ('Education', 'Environmental', 'Other', 'Railway', 'Recreational', 'Road', 'Water')");
         } else if (filterValue === "Private") {
           featureLayer.setWhere("EPI_NAME_1 IN ('Bankstown Local Environmental Plan 2015', 'Canterbury Local Environmental Plan 2012') AND MMB_CAT IN ('Airport', 'Commercial', 'Hospital/Medical', 'Industrial', 'Primary Production', 'Residential')");
+        }
+      }
+
+      function changeBasemap(basemap) {
+        if (basemap === 'osm') {
+          map.removeLayer(imageryLayer);
+          osmLayer.addTo(map);
+        } else if (basemap === 'imagery') {
+          map.removeLayer(osmLayer);
+          imageryLayer.addTo(map);
         }
       }
     </script>
